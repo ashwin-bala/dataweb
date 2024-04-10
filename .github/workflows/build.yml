@@ -14,6 +14,9 @@ jobs:
         cache-dependency-path: 'pom.xml' # optional
     - name: Run Unit tests using Maven
       run: mvn test
+      env:
+        AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
     - name: Run Integration tests using Maven
       run: mvn clean failsafe:integration-test
     - name: Run Package and Install
