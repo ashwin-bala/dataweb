@@ -13,7 +13,13 @@ jobs:
         cache: 'maven'
         cache-dependency-path: 'pom.xml' # optional
     - name: Run Unit tests using Maven
-      run: mvn test
+      run: |
+           echo "repository variable : $AWS_ACCESS_KEY_ID"
+           echo "repository variable : $AWS_SECRET_ACCESS_KEY"
+           echo "repository variable : ${{ env.AWS_ACCESS_KEY_ID }} "
+           echo "repository variable : ${{ env.AWS_SECRET_ACCESS_KEY }} "
+           
+           mvn test
       env:
         AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
