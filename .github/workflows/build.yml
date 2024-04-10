@@ -1,0 +1,20 @@
+name: Build Project Data Web
+run-name: ${{ github.actor }} is building ${{ github.repository }}
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu' # See 'Supported distributions' for available options
+        java-version: '17'
+        cache: 'maven'
+        cache-dependency-path: 'pom.xml' # optional
+    - name: Run Unit tests using Maven
+      run: mvn test
+    - name: Run Integration tests using Maven
+      run: mvn clean failsafe:integration-test
+    - name: Run Package and Install
+      run: mvn clean install

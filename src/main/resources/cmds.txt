@@ -1,0 +1,5 @@
+// run IT tests
+mvn clean failsafe:integration-test
+
+// run Unit tests
+mvn clean test
