@@ -19,23 +19,14 @@ jobs:
         cache: 'maven'
         cache-dependency-path: 'pom.xml' # optional
         
-    - name: Set and Retrieve Github ENV variables
+    - name: Run Unit tests using Maven
       shell: bash
-      run: |
-
-          echo 
-          # define variables      
-          # tests=16
-          # failures=2
-    
-          # # set them as GitHub ENV variables
-          # echo "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-          # echo "AWS_ACCESS_KEY_ID=${{ env.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-    
-          # # retrieve these GitHub ENV variables
-          # echo "${{ env.AWS_ACCESS_KEY_ID }} out of ${{ env.AWS_ACCESS_KEY_ID }} tests failed on CI" 
-          mvn test
+      run: mvn test --batch-mode --fail-at-end
+    - name: Publish Unit Test Report
+      uses: scacap/action-surefire-report@v1      
     - name: Run Integration tests using Maven
       run: mvn clean failsafe:integration-test
+    - name: Publish Integration Test Report
+      uses: scacap/action-surefire-report@v1           
     - name: Run Package and Install
       run: mvn clean install
