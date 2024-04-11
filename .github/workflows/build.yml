@@ -26,9 +26,9 @@ jobs:
             ls -ltr .
             ls -ltr target/*
     - name: Publish Unit Test Report
-      uses: scacap/action-surefire-report@v1      
+      uses: mikepenz/action-junit-report@v4
       with:
-        report_paths: 'target/surefire-reports/TEST-*.xml'
+        report_paths: '**/target/surefire-reports/TEST-*.xml'
     - name: Run Integration tests using Maven
       run: mvn clean failsafe:integration-test
     - name: Publish Integration Test Report
