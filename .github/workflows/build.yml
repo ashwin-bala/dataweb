@@ -39,7 +39,7 @@ jobs:
     - name: Publish Integration Test Report
       uses: scacap/action-surefire-report@v1 
       with:
-        report_paths: '**/target/failsafe-summary.xml'
+        report_paths: 'target/failsafe-summary.xml'
         check_name: Integration Test Reports        
         detailed_summary: true
     - name: Run Package and Install
