@@ -24,11 +24,11 @@ jobs:
       run: |
             mvn clean test
             ls -ltr .
-            ls -ltr .target/*
+            ls -ltr target/*
     - name: Publish Unit Test Report
       uses: scacap/action-surefire-report@v1      
       with:
-        report_paths: '.target/surefire-reports/TEST-*.xml'
+        report_paths: 'target/surefire-reports/TEST-*.xml'
     - name: Run Integration tests using Maven
       run: mvn clean failsafe:integration-test
     - name: Publish Integration Test Report
