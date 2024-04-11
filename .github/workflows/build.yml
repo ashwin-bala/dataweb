@@ -21,7 +21,9 @@ jobs:
         
     - name: Run Unit tests using Maven
       shell: bash
-      run: mvn test --batch-mode --fail-at-end
+      run: |
+            mvn test --batch-mode --fail-at-end
+            ls -ltr .
     - name: Publish Unit Test Report
       uses: scacap/action-surefire-report@v1      
     - name: Run Integration tests using Maven
