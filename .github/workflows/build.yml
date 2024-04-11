@@ -12,17 +12,21 @@ jobs:
         java-version: '17'
         cache: 'maven'
         cache-dependency-path: 'pom.xml' # optional
-    - name: Run Unit tests using Maven
+        
+    - name: Set and Retrieve Github ENV variables
+      shell: bash
       run: |
-           echo "repository variable : $AWS_ACCESS_KEY_ID"
-           echo "repository variable : $AWS_SECRET_ACCESS_KEY"
-           echo "repository variable : ${{ env.AWS_ACCESS_KEY_ID }} "
-           echo "repository variable : ${{ env.AWS_SECRET_ACCESS_KEY }} "
-           
-           mvn test
-      env:
-        AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          # define variables      
+          tests=16
+          failures=2
+    
+          # set them as GitHub ENV variables
+          echo "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=${{ env.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+    
+          # retrieve these GitHub ENV variables
+          echo "${{ env.AWS_ACCESS_KEY_ID }} out of ${{ env.AWS_ACCESS_KEY_ID }} tests failed on CI" 
+          mvn test
     - name: Run Integration tests using Maven
       run: mvn clean failsafe:integration-test
     - name: Run Package and Install
