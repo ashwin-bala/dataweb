@@ -34,7 +34,7 @@ jobs:
     
           # # retrieve these GitHub ENV variables
           # echo "${{ env.AWS_ACCESS_KEY_ID }} out of ${{ env.AWS_ACCESS_KEY_ID }} tests failed on CI" 
-          mvn -DAWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }} -DAWS_ACCESS_KEY_ID=${{ env.AWS_SECRET_ACCESS_KEY }}  test
+          mvn test
     - name: Run Integration tests using Maven
       run: mvn clean failsafe:integration-test
     - name: Run Package and Install
