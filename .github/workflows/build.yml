@@ -1,6 +1,9 @@
 name: Build Project Data Web
 run-name: ${{ github.actor }} is building ${{ github.repository }}
 on: [push]
+env:
+  AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ vars.AWS_SECRET_ACCESS_KEY }}
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
@@ -16,16 +19,18 @@ jobs:
     - name: Set and Retrieve Github ENV variables
       shell: bash
       run: |
+
+          echo 
           # define variables      
-          tests=16
-          failures=2
+          # tests=16
+          # failures=2
     
-          # set them as GitHub ENV variables
-          echo "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-          echo "AWS_ACCESS_KEY_ID=${{ env.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          # # set them as GitHub ENV variables
+          # echo "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          # echo "AWS_ACCESS_KEY_ID=${{ env.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
     
-          # retrieve these GitHub ENV variables
-          echo "${{ env.AWS_ACCESS_KEY_ID }} out of ${{ env.AWS_ACCESS_KEY_ID }} tests failed on CI" 
+          # # retrieve these GitHub ENV variables
+          # echo "${{ env.AWS_ACCESS_KEY_ID }} out of ${{ env.AWS_ACCESS_KEY_ID }} tests failed on CI" 
           mvn -DAWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }} -DAWS_ACCESS_KEY_ID=${{ env.AWS_SECRET_ACCESS_KEY }}  test
     - name: Run Integration tests using Maven
       run: mvn clean failsafe:integration-test
