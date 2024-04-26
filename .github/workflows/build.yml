@@ -50,7 +50,7 @@ jobs:
             zip -r deploy.zip target/dataweb-1.0.jar   
             cp target/dataweb-1.0.jar .
             ls -ltr .
-    - run: echo VERS=version-$(date +%s) >> $GITHUB_ENV
+    - run: echo VERS=$(date +%s) >> $GITHUB_ENV
     - name: Beanstalk Deploy
       uses: einaregilsson/beanstalk-deploy@v22
       with:
