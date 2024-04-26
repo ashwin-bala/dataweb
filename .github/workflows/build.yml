@@ -1,6 +1,9 @@
 name: Build Project Data Web1
 run-name: ${{ github.actor }} is building ${{ github.repository }}
-on: [push]
+on:
+  push:
+    branches:
+      - develop
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
