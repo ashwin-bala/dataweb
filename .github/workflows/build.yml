@@ -57,7 +57,5 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: TestWebApp
           environment_name: datawebapp
-          version_label: 1.0
           region: us-east-1
           deployment_package: dataweb-1.0.jar     
-          use_existing_version_if_available: true
