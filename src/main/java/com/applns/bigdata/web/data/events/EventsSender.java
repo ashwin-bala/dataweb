@@ -18,7 +18,7 @@ import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 
 @Configuration
 public class EventsSender {
-
+	
 	private SqsClient sqsClient;
 	private final ObjectMapper objectMapper = new ObjectMapper();
 	private String queueUrl;
@@ -33,6 +33,7 @@ public class EventsSender {
 		this.sqsClient = SqsClient.builder().region(Region.US_EAST_1)
 				.credentialsProvider(EnvironmentVariableCredentialsProvider.create()).build();
 		this.queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
+
     }
 
 	public EventsSender() {

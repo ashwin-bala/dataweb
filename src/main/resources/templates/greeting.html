@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Applications of Software Architecture for Big Data - Final Project - Web App</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            background-color: #f2f2f2; /* Replace with your desired color */
+        }
+    </style>
+</head>
+<style>
+  p {
+    color: #26b72b;
+  }
+</style>
+<body>
+    <h1>Welcome to Art Works Data Web App </h1>    
+   	<section>
+    <font color=blue> <h3> You are seeing a web application which fetches different Art Works from the "Art Institute of Chicago".
+     The Art Institute of Chicago API exposes museum’s public data as JSON based REST-style services. 
+       </h3>
+	</font>       
+    <section>
+    
+    <br/><br/>
+    <h2> Data Collection </h1>
+    <h3> Refresh / Get new ArtWorks from Art Institute of Chicago APIs </h1>
+		<p>
+       	It gets new page of artworks from Art Institute of Chicago APIs and saves to Postgres DB tables
+       	(https://api.artic.edu/api/v1/artworks) 
+    	</p>
+    <form action="#" th:action="@{/getdata}" th:object="${datarequest}" method="post">
+        <p><input type="submit" value="Get Artworks" />
+        </p>
+    </form>
+    
+      	<br/>  	<br/>  	<br/>
+        <h2> Data Analysis </h1>
+    	<p>
+        It runs data analysis queries on Postgres DB tables
+       	(https://api.artic.edu/api/v1/artworks) 
+    	</p>
+    	
+        <h3> List Earliest Art Dates by Place of origin </h1>
+       <form action="#" th:action="@{/earliestArtDatesByPlaceOfOrigin}" th:object="${datarequest}" method="post"> 
+        <p><input type="submit" value="Analyse Data" />
+       </form>
+  
+
+
+        <h3> List Most Popular Art Style Titles </h1>
+       <form action="#" th:action="@{/mostPopularStyleTitles}" th:object="${datarequest}" method="post"> 
+        <p><input type="submit" value="Analyse Data" />
+       </form>
+        
+
+        <h3> List Total number of all Artwork Type titles </h1>
+       <form action="#" th:action="@{/getAllArtWorkTypeTitles}" th:object="${datarequest}" method="post"> 
+        <p><input type="submit" value="Analyse Data" />
+       </form>
+        
+    
+</body>
+</html>
