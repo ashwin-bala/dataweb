@@ -34,10 +34,10 @@ public class ActionIntegrationTestIT {
         DataWebRequest name = new DataWebRequest();
         String requestBody = new ObjectMapper().writeValueAsString(name);
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-        String url = "http://localhost:" + port + "/earliestArtDatesByPlaceOfOrigin";
+        String url = System.getenv("WEB_ENV") + "/earliestArtDatesByPlaceOfOrigin";
         System.out.println("------------URL---------------"+url);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url,
-                HttpMethod.GET, requestEntity, String.class);
+                HttpMethod.POST, requestEntity, String.class);
 
                 
 		assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
@@ -51,10 +51,10 @@ public class ActionIntegrationTestIT {
         DataWebRequest name = new DataWebRequest();
         String requestBody = new ObjectMapper().writeValueAsString(name);
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-        String url = "http://localhost:" + port + "/mostPopularStyleTitles";
+        String url = System.getenv("WEB_ENV") + "/mostPopularStyleTitles";
         System.out.println("------------URL---------------"+url);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url,
-                HttpMethod.GET, requestEntity, String.class);
+                HttpMethod.POST, requestEntity, String.class);
 
                 
 		assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
@@ -67,11 +67,11 @@ public class ActionIntegrationTestIT {
         DataWebRequest name = new DataWebRequest();
         String requestBody = new ObjectMapper().writeValueAsString(name);
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-        String url = "http://localhost:" + port + "/getAllArtWorkTypeTitles";
+        String url = System.getenv("WEB_ENV") + "/getAllArtWorkTypeTitles";
         System.out.println("------------URL---------------"+url);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(url,
-                HttpMethod.GET, requestEntity, String.class);
+                HttpMethod.POST, requestEntity, String.class);
 
                 
 		assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
