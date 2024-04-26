@@ -57,6 +57,8 @@ jobs:
             zip -r deploy.zip target/dataweb-1.0.jar   
             cp target/dataweb-1.0.jar .
             ls -ltr .
+      env:
+          DATA_ANALYSER_ENDPOINTS: ${{ vars.DATA_ANALYSER_ENDPOINTS }}                      
     - run: echo VERS=$(date +%s) >> $GITHUB_ENV
     - name: Beanstalk Deploy
       uses: einaregilsson/beanstalk-deploy@v22
