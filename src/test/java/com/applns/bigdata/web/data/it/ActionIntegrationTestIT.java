@@ -34,7 +34,7 @@ public class ActionIntegrationTestIT {
         DataWebRequest name = new DataWebRequest();
         String requestBody = new ObjectMapper().writeValueAsString(name);
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-        String url = System.getenv("WEB_ENV") + "/earliestArtDatesByPlaceOfOrigin";
+        String url = "http://datawebapp.us-east-1.elasticbeanstalk.com/earliestArtDatesByPlaceOfOrigin";
         System.out.println("------------URL---------------"+url);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url,
                 HttpMethod.POST, requestEntity, String.class);
@@ -51,7 +51,7 @@ public class ActionIntegrationTestIT {
         DataWebRequest name = new DataWebRequest();
         String requestBody = new ObjectMapper().writeValueAsString(name);
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-        String url = System.getenv("WEB_ENV") + "/mostPopularStyleTitles";
+        String url = "http://datawebapp.us-east-1.elasticbeanstalk.com/mostPopularStyleTitles";
         System.out.println("------------URL---------------"+url);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url,
                 HttpMethod.POST, requestEntity, String.class);
@@ -67,11 +67,11 @@ public class ActionIntegrationTestIT {
         DataWebRequest name = new DataWebRequest();
         String requestBody = new ObjectMapper().writeValueAsString(name);
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-        String url = System.getenv("WEB_ENV") + "/getAllArtWorkTypeTitles";
+        String url = "http://datawebapp.us-east-1.elasticbeanstalk.com/getAllArtWorkTypeTitles";
         System.out.println("------------URL---------------"+url);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(url,
-                HttpMethod.POST, requestEntity, String.class);
+                HttpMethod.POST	, requestEntity, String.class);
 
                 
 		assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
