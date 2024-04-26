@@ -1,11 +1,11 @@
-name: Build Project Data Web1
+name: Build Project Data Web
 run-name: ${{ github.actor }} is building ${{ github.repository }}
 on:
   push:
     branches:
       - develop
-jobs:
-  check-bats-version:
+jobs:      
+  run-data-web-project-action:
     runs-on: ubuntu-latest
     steps:
     - name: Configure AWS Credentials
@@ -17,28 +17,56 @@ jobs:
     - uses: actions/checkout@v4
     - uses: actions/setup-java@v4
       with:
-        distribution: 'zulu' # See 'Supported distributions' for available options
+        distribution: 'zulu' # See 'Supported distributions' for available options2
         java-version: '17'
         cache: 'maven'
         cache-dependency-path: 'pom.xml' # optional
         
-    - name: Set and Retrieve Github ENV variables
+    - name: Run Unit tests using Maven
       shell: bash
       run: |
-
-          echo 
-          # define variables      
-          # tests=16
-          # failures=2
-    
-          # # set them as GitHub ENV variables
-          # echo "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-          # echo "AWS_ACCESS_KEY_ID=${{ env.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-    
-          # # retrieve these GitHub ENV variables
-          # echo "${{ env.AWS_ACCESS_KEY_ID }} out of ${{ env.AWS_ACCESS_KEY_ID }} tests failed on CI" 
-          mvn test
+            mvn clean test
+            ls -ltr .
+            ls -ltr target/*
+      env:
+          DATA_ANALYSER_ENDPOINTS: ${{ vars.DATA_ANALYSER_ENDPOINTS }}            
+    - name: Publish Unit Test Report
+      uses: mikepenz/action-junit-report@v4
+      with:
+        report_paths: '**/target/surefire-reports/TEST-*.xml'
+        check_name: Unit Test Reports      
+        detailed_summary: true
     - name: Run Integration tests using Maven
-      run: mvn clean failsafe:integration-test
+      run: |
+            mvn clean verify
+            ls -ltr .
+            ls -ltr target/*
+      env:
+          DATA_ANALYSER_ENDPOINTS: ${{ vars.DATA_ANALYSER_ENDPOINTS }}            
+    - name: Publish Integration Test Report
+      uses: scacap/action-surefire-report@v1 
+      with:
+        report_paths: '**/target/failsafe-reports/TEST-*.xml'
+        check_name: Integration Test Reports        
+        detailed_summary: true
     - name: Run Package and Install
-      run: mvn clean install
+      run: |
+            mvn clean -DskipTests=true install 
+            ls -ltr .
+            ls -ltr target/*
+            zip -r deploy.zip target/dataweb-1.0.jar   
+            cp target/dataweb-1.0.jar .
+            ls -ltr .
+      env:
+          DATA_ANALYSER_ENDPOINTS: ${{ vars.DATA_ANALYSER_ENDPOINTS }}                      
+    - run: echo VERS=$(date +%s) >> $GITHUB_ENV
+    - name: Beanstalk Deploy
+      uses: einaregilsson/beanstalk-deploy@v22
+      with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: TestWebApp
+          environment_name: datawebapp
+          version_label: ${{ env.VERS }}
+          region: us-east-1
+          deployment_package: dataweb-1.0.jar     
