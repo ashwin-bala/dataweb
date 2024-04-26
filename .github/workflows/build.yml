@@ -42,7 +42,8 @@ jobs:
             ls -ltr .
             ls -ltr target/*
       env:
-          DATA_ANALYSER_ENDPOINTS: ${{ vars.DATA_ANALYSER_ENDPOINTS }}            
+          DATA_ANALYSER_ENDPOINTS: ${{ vars.DATA_ANALYSER_ENDPOINTS }}     
+          WEB_ENV: ${{ vars.WEB_ENV }}           
     - name: Publish Integration Test Report
       uses: scacap/action-surefire-report@v1 
       with:
