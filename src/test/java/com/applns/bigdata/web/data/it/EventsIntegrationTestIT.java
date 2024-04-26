@@ -18,7 +18,7 @@ import com.applns.bigdata.web.data.models.EventMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class ControllerTestIT {
+public class EventsIntegrationTestIT {
 
 	@LocalServerPort
 	private int port;
