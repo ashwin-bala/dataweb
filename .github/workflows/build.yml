@@ -50,6 +50,7 @@ jobs:
             zip -r deploy.zip target/dataweb-1.0.jar   
             cp target/dataweb-1.0.jar .
             ls -ltr .
+    - run: echo VERS=version-$(date +%s) >> $GITHUB_ENV
     - name: Beanstalk Deploy
       uses: einaregilsson/beanstalk-deploy@v22
       with:
@@ -57,5 +58,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: TestWebApp
           environment_name: datawebapp
+          version_label: ${{ env.FOO }}
           region: us-east-1
           deployment_package: dataweb-1.0.jar     
