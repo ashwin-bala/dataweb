@@ -43,4 +43,19 @@ jobs:
         check_name: Integration Test Reports        
         detailed_summary: true
     - name: Run Package and Install
-      run: mvn clean install
+      run: |
+            mvn clean install
+            ls -ltr .
+            ls -ltr target/*
+            zip -r deploy.zip target/dataweb-1.0.jar        
+            ls -ltr .
+    - name: Beanstalk Deploy
+      uses: einaregilsson/beanstalk-deploy@v22
+      with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: TestWebApp
+          environment_name: datawebapp
+          version_label: 1.0
+          region: us-east-1
+          deployment_package: deploy.zip            
