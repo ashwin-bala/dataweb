@@ -3,3 +3,5 @@ mvn clean failsafe:integration-test
 
 // run Unit tests
 mvn clean test
+
+export DATA_ANALYSER_ENDPOINTS=http://ec2-52-90-210-115.compute-1.amazonaws.com:8082

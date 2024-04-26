@@ -34,8 +34,9 @@ public class ActionIntegrationTestIT {
         DataWebRequest name = new DataWebRequest();
         String requestBody = new ObjectMapper().writeValueAsString(name);
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-
-        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:" + port + "/earliestArtDatesByPlaceOfOrigin",
+        String url = "http://localhost:" + port + "/earliestArtDatesByPlaceOfOrigin";
+        System.out.println("------------URL---------------"+url);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url,
                 HttpMethod.POST, requestEntity, String.class);
 
                 
