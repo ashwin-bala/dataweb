@@ -1,7 +1,9 @@
 name: Build Project Data Web
 run-name: ${{ github.actor }} is building ${{ github.repository }}
-on: [push]
-jobs:
+  on:
+    push:
+      branches:
+        - develop
   run-data-web-project-action:
     runs-on: ubuntu-latest
     steps:
