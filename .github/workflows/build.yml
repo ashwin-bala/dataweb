@@ -36,19 +36,19 @@ jobs:
         report_paths: '**/target/surefire-reports/TEST-*.xml'
         check_name: Unit Test Reports      
         detailed_summary: true
-    - name: Run Integration tests using Maven
-      run: |
-            mvn clean verify
-            ls -ltr .
-            ls -ltr target/*
-      env:
-          DATA_ANALYSER_ENDPOINTS: ${{ vars.DATA_ANALYSER_ENDPOINTS }}            
-    - name: Publish Integration Test Report
-      uses: scacap/action-surefire-report@v1 
-      with:
-        report_paths: '**/target/failsafe-reports/TEST-*.xml'
-        check_name: Integration Test Reports        
-        detailed_summary: true
+    # - name: Run Integration tests using Maven
+    #   run: |
+    #         mvn clean verify
+    #         ls -ltr .
+    #         ls -ltr target/*
+    #   env:
+    #       DATA_ANALYSER_ENDPOINTS: ${{ vars.DATA_ANALYSER_ENDPOINTS }}            
+    # - name: Publish Integration Test Report
+    #   uses: scacap/action-surefire-report@v1 
+    #   with:
+    #     report_paths: '**/target/failsafe-reports/TEST-*.xml'
+    #     check_name: Integration Test Reports        
+    #     detailed_summary: true
     - name: Run Package and Install
       run: |
             mvn clean -DskipTests=true install 

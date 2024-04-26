@@ -37,7 +37,7 @@ public class ActionIntegrationTestIT {
         String url = "http://localhost:" + port + "/earliestArtDatesByPlaceOfOrigin";
         System.out.println("------------URL---------------"+url);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url,
-                HttpMethod.POST, requestEntity, String.class);
+                HttpMethod.GET, requestEntity, String.class);
 
                 
 		assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
@@ -54,7 +54,7 @@ public class ActionIntegrationTestIT {
         String url = "http://localhost:" + port + "/mostPopularStyleTitles";
         System.out.println("------------URL---------------"+url);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url,
-                HttpMethod.POST, requestEntity, String.class);
+                HttpMethod.GET, requestEntity, String.class);
 
                 
 		assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
@@ -71,7 +71,7 @@ public class ActionIntegrationTestIT {
         System.out.println("------------URL---------------"+url);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(url,
-                HttpMethod.POST, requestEntity, String.class);
+                HttpMethod.GET, requestEntity, String.class);
 
                 
 		assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
