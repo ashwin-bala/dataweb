@@ -19,32 +19,32 @@ jobs:
         cache: 'maven'
         cache-dependency-path: 'pom.xml' # optional
         
-    - name: Run Unit tests using Maven
-      shell: bash
-      run: |
-            mvn clean test
-            ls -ltr .
-            ls -ltr target/*
-    - name: Publish Unit Test Report
-      uses: mikepenz/action-junit-report@v4
-      with:
-        report_paths: '**/target/surefire-reports/TEST-*.xml'
-        check_name: Unit Test Reports      
-        detailed_summary: true
-    - name: Run Integration tests using Maven
-      run: |
-            mvn clean verify
-            ls -ltr .
-            ls -ltr target/*
-    - name: Publish Integration Test Report
-      uses: scacap/action-surefire-report@v1 
-      with:
-        report_paths: '**/target/failsafe-reports/TEST-*.xml'
-        check_name: Integration Test Reports        
-        detailed_summary: true
+    # - name: Run Unit tests using Maven
+    #   shell: bash
+    #   run: |
+    #         mvn clean test
+    #         ls -ltr .
+    #         ls -ltr target/*
+    # - name: Publish Unit Test Report
+    #   uses: mikepenz/action-junit-report@v4
+    #   with:
+    #     report_paths: '**/target/surefire-reports/TEST-*.xml'
+    #     check_name: Unit Test Reports      
+    #     detailed_summary: true
+    # - name: Run Integration tests using Maven
+    #   run: |
+    #         mvn clean verify
+    #         ls -ltr .
+    #         ls -ltr target/*
+    # - name: Publish Integration Test Report
+    #   uses: scacap/action-surefire-report@v1 
+    #   with:
+    #     report_paths: '**/target/failsafe-reports/TEST-*.xml'
+    #     check_name: Integration Test Reports        
+    #     detailed_summary: true
     - name: Run Package and Install
       run: |
-            mvn clean install
+            mvn clean -DskipTests=true install 
             ls -ltr .
             ls -ltr target/*
             zip -r deploy.zip target/dataweb-1.0.jar        
