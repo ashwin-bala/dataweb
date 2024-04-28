@@ -9,21 +9,28 @@
         }
     </style>
 </head>
+<style>
+  p {
+    color: #26b72b;
+  }
+</style>
 <body>
-    <h1>Welcome to Art Works Data Web App </h1>
-    <p th:text="|Hello ...!|" />
+    <h1>Welcome to Art Works Data Web App </h1>    
+   	<section>
+    <font color=blue> <h3> You are seeing a web application which fetches different Art Works from the "Art Institute of Chicago".
+     The Art Institute of Chicago API exposes museum’s public data as JSON based REST-style services. 
+       </h3>
+	</font>       
+    <section>
     
+    <br/><br/>
+    <h2> Data Collection </h1>
+    <h3> Refresh / Get new ArtWorks from Art Institute of Chicago APIs </h1>
+    	
+   <p> You have successfully fetched ArtWorks from Art Institute of Chicago APIs and stored them in the postgres database </p>
+    	   
     
-     <h4> About this website:  <br/>  You are seeing a web application which fetches different Art Works from the "Art Institute of Chicago".
-     <br/> The Art Institute of Chicago API exposes museum’s public data as JSON based REST-style services. 
-       </h4>
-    
-    
-    <h1> Get new ArtWorks from Art Institute of Chicago APIs </h1>
-     <a href="/">Navigate back to Home Page</a>
-	  <h1>Result</h1> 	   
-	  
-	    <p th:text="'content: ' + ${datarequest.content}" />
-	    
 </body>
 </html>
+
+

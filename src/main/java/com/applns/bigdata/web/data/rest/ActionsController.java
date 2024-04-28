@@ -30,9 +30,9 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 
 @Controller
-public class IndexController {
+public class ActionsController {
 
-	private static final Logger log = LoggerFactory.getLogger(IndexController.class);
+	private static final Logger log = LoggerFactory.getLogger(ActionsController.class);
 
 	@Autowired
 	private EventsSender eventsSender;
