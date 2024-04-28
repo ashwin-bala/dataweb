@@ -69,6 +69,7 @@ public class ActionsController {
 
 	@PostMapping("/earliestArtDatesByPlaceOfOrigin")
 	public String earliestArtDatesByPlaceOfOrigin(@ModelAttribute DataWebRequest dataWebRequest, Model model) throws Exception {
+		Counter cntr = meterRegistry.counter("app.reqscnt.earliestArtDatesByPlaceOfOrigin");
 		model.addAttribute("datarequest", dataWebRequest);
 		String EP = Optional.ofNullable(System.getenv("DATA_ANALYSER_ENDPOINTS"))
 				.orElseThrow(() -> new Exception("DATA_ANALYSER_ENDPOINTS is not set in the environment"));
@@ -87,12 +88,13 @@ public class ActionsController {
 		
 		
 	    model.addAttribute("dataAnalysisResults", earliestArtDatesPlaceOfOriginResponse.getResponse());
-
+	    cntr.increment();
 		return "earliestArtDatesByPlaceOfOrigin";
 	}
 	
 	@PostMapping("/mostPopularStyleTitles")
 	public String mostPopularStyleTitles(@ModelAttribute DataWebRequest dataWebRequest, Model model) throws Exception {
+		Counter cntr = meterRegistry.counter("app.reqscnt.mostPopularStyleTitles");
 		model.addAttribute("datarequest", dataWebRequest);
 		String EP = Optional.ofNullable(System.getenv("DATA_ANALYSER_ENDPOINTS"))
 				.orElseThrow(() -> new Exception("DATA_ANALYSER_ENDPOINTS is not set in the environment"));
@@ -110,12 +112,14 @@ public class ActionsController {
 		Collections.sort(popularStyleTitlesResponse.getResponse(),new PopularStyleTitlesObjComparator());
 		
 	    model.addAttribute("dataAnalysisResults", popularStyleTitlesResponse.getResponse());
+	    cntr.increment();
 
 		return "popularStyleTitlesResponse";
 	}
 	
 	@PostMapping("/getAllArtWorkTypeTitles")
 	public String getAllArtWorkTypeTitles(@ModelAttribute DataWebRequest dataWebRequest, Model model) throws Exception {
+		Counter cntr = meterRegistry.counter("app.reqscnt.getAllArtWorkTypeTitles");
 		model.addAttribute("datarequest", dataWebRequest);
 		String EP = Optional.ofNullable(System.getenv("DATA_ANALYSER_ENDPOINTS"))
 				.orElseThrow(() -> new Exception("DATA_ANALYSER_ENDPOINTS is not set in the environment"));
@@ -133,6 +137,7 @@ public class ActionsController {
 		Collections.sort(artWorkTypeTitlesResponse.getResponse(),new ArtWorkTypeTitlesObjComparator());
 				
 	    model.addAttribute("dataAnalysisResults", artWorkTypeTitlesResponse.getResponse());
+	    cntr.increment();
 
 		return "artWorkTypeTitlesResponse";
 	}
