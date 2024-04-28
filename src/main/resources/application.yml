@@ -5,6 +5,9 @@ management:
     endpoints:
         web:
             exposure:
-                include: [ "prometheus" ]
+                include: [ "*","prometheus" ]
+    endpoint:
+        health:
+        show-details: always                
 amazonsqs:
     queueName: MessageQueue.fifo
